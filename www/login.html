@@ -20,7 +20,7 @@
             <i class="fas fa-eye" id="passEye"></i>
         </div>
         <div class="ask-auth" onclick="location.replace('register.html')">Don't you have an account?</div>
-        <button id="submitButton" class="submitButton">Login</button>
+        <button type="button" id="submitButton" class="submitButton">Login</button>
     </form>
 
 <div id="loadingBox">
@@ -33,10 +33,11 @@
     var loadingBox = document.getElementById("loadingBox")
     var passEye = document.getElementById("passEye")
     var password = document.getElementById("password")
+    var submitButton = document.getElementById("submitButton")
     
-    form.addEventListener("submit", (e) => {
+    submitButton.addEventListener("click", () => {
         loadingFunc(loadingBox, "on")
-        e.preventDefault();
+        
         var formData = new FormData(form)
         
         if (formData.get("username").length < 3) {loadingFunc(loadingBox, "off"); cealert("Username so verify"); return;}
@@ -50,7 +51,7 @@
         .then(res => res.json())
         .then(data => {
             console.log(data)
-            if (data.detail) {cealert(data.detail); loadingFunc(loadingBox, "off")}
+            if (data.detail) {loadingFunc(loadingBox, "off"); cealert(data.detail)}
             else {
                 localStorage.setItem("accessToken", data.access)
                 history.back()

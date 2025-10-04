@@ -20,7 +20,7 @@
             <i class="fas fa-eye" id="passEye"></i>
         </div>
         <div class="ask-auth" onclick="location.replace('login.html')">Do you have an account?</div>
-        <button id="submitButton" class="submitButton">Register</button>
+        <button type="button" id="submitButton" class="submitButton">Register</button>
     </form>
 
 <div id="loadingBox">
@@ -33,10 +33,10 @@
     var loadingBox = document.getElementById("loadingBox")
     var passEye = document.getElementById("passEye")
     var password = document.getElementById("password")
+    var submitButton = document.getElementById("submitButton")
     
-    form.addEventListener("submit", (e) => {
+    submitButton.addEventListener("click", () => {
         loadingFunc(loadingBox, "on")
-        e.preventDefault();
         var formData = new FormData(form)
         
         console.log(formData.get("username"))

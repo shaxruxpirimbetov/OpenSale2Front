@@ -98,7 +98,6 @@ const openProductView = product_id => {
 }
 
 const loadingFunc = (box, type) => {
-    console.log(box, type)
     if (type == "on") {box.style.display = "block"}
     else {box.style.display = "none"}
 }
