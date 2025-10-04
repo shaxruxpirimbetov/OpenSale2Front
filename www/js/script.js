@@ -101,3 +101,4 @@ const loadingFunc = (box, type) => {
     if (type == "on") {box.style.display = "block"}
     else {box.style.display = "none"}
 }
+

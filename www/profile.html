@@ -99,7 +99,8 @@
         })
         .then(res => res.json())
         .then(data => {
-            if (data.detail) {cealert(data.detsil)}
+            if (data.detail == "User not found") {location.replace("login.html")}
+            else if (data.detail) {cealert(data.detail)}
             else if (data.status == false) {cealert(data.message)}
             else {
                 console.log(data.message)
