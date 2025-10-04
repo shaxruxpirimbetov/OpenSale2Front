@@ -1,0 +1,107 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-shopping-cart"></i>
+            <h2>OpenSale</h2>
+        </div>
+    </header>
+    <main style="display: flex; flex-direction: column; gap: 1em;">
+        <div class="card" id="view-product">
+            <h2 id="product-title"></h2>
+            <h3 id="product-price"></h3>
+        </div>
+        <div class="card">
+            <div class="store-box">
+                <img src="" alt="" id="store-logo">
+                <div id="store-title"></div>
+                <div class="open-store" id="openStoreButton">Open</div>
+            </div>
+        </div>
+        <div class="card" id="view-product">
+            <div id="product-images"></div>
+            <pre id="product-description"></pre>
+            <hr>
+            <div class="control">
+                <div class="button" id="add-to-cart">Add to cart</div>
+            </div>
+        </div>
+    </main>
+
+<script src="js/config.js"></script>
+<script src="js/script.js"></script>
+<script>
+    var accessToken = localStorage.getItem("accessToken")
+    var product_id = sessionStorage.getItem("view_product_id")
+    var title = document.getElementById("product-title")
+    var price = document.getElementById("product-price")
+    var description = document.getElementById("product-description")
+    var title = document.getElementById("product-title")
+    var images = document.getElementById("product-images") 
+    var storeLogo = document.getElementById("store-logo")
+    var storeTitle = document.getElementById("store-title")
+    var addToCard = document.getElementById("add-to-cart")
+    var openStoreButton = document.getElementById("openStoreButton")
+    var headers = {"Content-Type": "application/json"}
+    
+    if (accessToken) {headers = {"Content-Type": "application/json", "authorization": `Bearer ${accessToken}`}}
+    if (product_id == null) {history.back()}
+    
+    fetch(baseUrl+"/products?product_id="+product_id, {
+        method: "GET", headers: headers
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.detail) {cealert(data.detail)}
+        else if (data.status == false) {cealert(data.message)}
+        else {
+            console.log(headers)
+            console.log(data.message)
+            title.textContent = data.message.title
+            description.textContent = data.message.description
+            price.textContent = data.message.price
+            storeLogo.src = baseUrl+data.message.store.logo
+            storeTitle.textContent = data.message.store.title
+            openStoreButton.onclick = () => {sessionStorage.setItem("store_id", data.message.store.id); location.assign("store-products.html")}
+            data.message.images.forEach(image => {
+                var imageBox = document.createElement("img")
+                imageBox.src = baseUrl+image.image
+                images.appendChild(imageBox)
+            })
+            if (data.message.saved == "unauthorized") {addToCard.onclick = () => location.assign("login.html")}
+            else if (data.message.saved) {addToCard.textContent = "Remove from cart"}
+        }
+    })
+    .catch(err => cealert(err))
+    
+    addToCard.addEventListener("click", () => {
+        if (accessToken == null) {cealert("Register"); return;}
+        fetch(baseUrl+"/user/saved_product/", {
+            method: "POST",
+            headers: {"Content-Type": "application/json", "authorization": `Bearer ${accessToken}`},
+            body: JSON.stringify({product_id: product_id})
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.detail) {cealert(data.detail)}
+            else if (data.status == false) {cealert(data.message)}
+            else {
+                console.log(data)
+                if (data.type == "deleted") {addToCard.textContent = "Add to cart"}
+                else {addToCard.textContent = "Remove from cart"}
+            }
+        })
+        .catch(err => cealert(err))
+    })
+    
+</script>
+</body>
+</html>

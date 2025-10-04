@@ -1,0 +1,77 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <form id="auth" class="card">
+        <h2>Update Product</h2>
+        <div class="input-box">
+            <i class="fas fa-user"></i>
+            <input type="text" name="title" placeholder="Title" id="title">
+        </div>
+        <div class="input-box">
+            <i class="fas fa-lock"></i>
+            <input type="text" name="description" placeholder="Description" id="description">
+        </div>
+        <div class="input-box">
+            <i class="fas fa-dollar"></i>
+            <input type="number" name="price" placeholder="Price" id="price">
+        </div>
+        <button id="submitButton" class="submitButton">Update</button>
+    </form>
+
+<script src="../js/config.js"></script>
+<script src="../js/script.js"></script>
+<script>
+    var title = document.getElementById("title")
+    var description = document.getElementById("description")
+    var price = document.getElementById("price")
+    var form = document.querySelector("form")
+    var accessToken = localStorage.getItem("accessToken")
+    var product_id = sessionStorage.getItem("update_product_id")
+    
+    if (product_id == null) {history.back()}
+    
+    fetch(baseUrl+"/products?product_id="+product_id, {
+        method: "GET",
+        headers: {"Content-Type": "application/json", "authorization": `Bearer ${accessToken}`}
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.detail) {cealert(data.detail)}
+        else if (data.status == false) {cealert(data.message)}
+        else {
+            title.value = data.message.title
+            description.value = data.message.description
+            price.value = data.message.price
+        }
+    })
+    .catch(err => cealert(err))
+    
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        var formData = new FormData(form)
+        formData.append("product_id", product_id)
+        
+        fetch(baseUrl+"/products/", {
+            method: "PUT",
+            headers: {"authorization": `Bearer ${accessToken}`},
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.detail) {cealert(data.detail)}
+            else if (data.status == false) {cealert(data.message)}
+            else {history.back()}
+        })
+        .catch(err => cealert(err))
+    })
+    
+</script>
+</body>
+</html>

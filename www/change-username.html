@@ -1,0 +1,52 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <form id="auth" class="card">
+        <h2>Change username</h2>
+        <div class="input-box">
+            <i class="fas fa-user"></i>
+            <input type="text" name="username" placeholder="New Username" id="username">
+        </div>
+        <button id="submitButton" class="submitButton">Change</button>
+    </form>
+
+<div id="loadingBox">
+    <div class="loadng-circle"></div>
+</div>
+<script src="js/config.js"></script>
+<script src="js/script.js"></script>
+<script>
+    var accessToken = localStorage.getItem("accessToken")
+    var loadingBox = document.getElementById("loadingBox")
+    var form = document.querySelector("form")
+    
+    form.addEventListener("submit", (e) => {
+        loadingFunc("on")
+        e.preventDefault();
+        var formData = new FormData(form)
+        
+        fetch(baseUrl+"/user/register/", {
+            method: "PUT",
+            headers: {"authorization": `Bearer ${accessToken}`},
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if (data.detail) {loadingFunc(loadingBox, "off"); cealert(data.detail);}
+            else if (data.status == false) {cealert(data.message); loadingFunc("off")}
+            else {history.back()}
+        })
+        .catch(err => cealert(err))
+    })
+    
+</script>
+</body>
+</html>

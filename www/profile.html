@@ -1,0 +1,127 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-shopping-cart"></i>
+            <h2>OpenSale</h2>
+        </div>
+    </header>
+    
+    <div class="unauthorised-box">
+        <i class="fas fa-face-frown"></i>
+        <div class="text">You don't have an account!</div>
+        <div class="button" onclick="location.assign('register.html')">Register</div>
+        <div class="button" onclick="location.assign('login.html')">Login</div>
+    </div>
+    
+    <main>
+        
+        <div class="profileDataBox card">
+            <img src="" alt="" class="store-logo" id="store-logo">
+            <div class="store-title" id="store-title"></div>
+            <div class="username" id="username"></div>
+        </div>
+        <br>
+        <div class="profile-navs">
+            <div class="profile-nav" onclick="location.assign('change-username.html')">
+                <i class="fas fa-i"></i>
+                <div class="title">Change Username</div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="profile-nav" id="beASellerNav" onclick="location.assign('seller/create-store.html')">
+                <i class="fas fa-user-tie"></i>
+                <div class="title">Be a seller</div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="profile-nav" id="myProductsNav" onclick="location.assign('seller/my-products.html')">
+                <i class="fas fa-shopping-cart"></i>
+                <div class="title">My products</div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="profile-nav" id="logoutButton">
+                <i class="fas fa-sign-out-alt"></i>
+                <div class="title">Log out</div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+        
+    </main>
+
+    <br><br><br><br><br>
+    <footer>
+        <div class="page" onclick="location.replace('index.html')">
+            <i class="fas fa-home"></i>
+            <div class="title">Home</div>
+        </div>
+        <div class="page" onclick="location.replace('search.html')">
+            <i class="fas fa-search"></i>
+            <div class="title">Search</div>
+        </div>
+        <div class="page" onclick="location.replace('profile.html')">
+            <i class="fas fa-user"></i>
+            <div class="title">Profile</div>
+        </div>
+    </footer>
+
+<script src="js/config.js"></script>
+<script src="js/script.js"></script>
+<script>
+    var accessToken = localStorage.getItem("accessToken")
+    
+    var storeLogo = document.getElementById("store-logo")
+    var storeTitle = document.getElementById("store-title")
+    var username = document.getElementById("username")
+    
+    var beASellerNav = document.getElementById("beASellerNav")
+    var myProductsNav = document.getElementById("myProductsNav")
+    var logoutButton = document.getElementById("logoutButton")
+    var mainBox = document.querySelector("main")
+    var unauthorisedBox = document.querySelector(".unauthorised-box")
+    
+    beASellerNav.style.display = "none"
+    myProductsNav.style.display = "none"
+    
+    if (accessToken == null) {
+        mainBox.style.display = "none"
+        unauthorisedBox.style.display = "flex"
+    } else {
+        fetch(baseUrl+"/user/get_me/", {
+            method: "GET",
+            headers: {"Content-Type": "application/json", "authorization": `Bearer ${accessToken}`}
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.detail) {cealert(data.detsil)}
+            else if (data.status == false) {cealert(data.message)}
+            else {
+                console.log(data.message)
+                var user = data.message
+                if (user.is_seller) {
+                    storeLogo.src = baseUrl+user.store.logo
+                    storeTitle.textContent = user.store.title
+                    myProductsNav.style.display = "flex"
+                } else {beASellerNav.style.display = "flex"}
+                username.textContent = user.username
+            }
+        }).catch(err => cealert(err))
+        
+        logoutButton.addEventListener("click", () => {
+            var sure = confirm("Logout ?")
+            if (sure) {
+                localStorage.removeItem("accessToken")
+                location.assign("login.html")
+            }
+        })
+    }
+    
+</script>
+</body>
+</html>

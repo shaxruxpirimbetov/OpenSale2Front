@@ -1,0 +1,70 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-shopping-cart"></i>
+            <h2>OpenSale</h2>
+        </div>
+    </header>
+    <main>
+        
+        <div class="search-input-box">
+            <i class="fas fa-search"></i>
+            <input id="searchInput" type="search" placeholder="Search product...">
+        </div>
+        
+        <div class="products-list">
+        </div>
+        
+    </main>
+
+    <br><br><br><br><br>
+    <footer>
+        <div class="page" onclick="location.replace('index.html')">
+            <i class="fas fa-home"></i>
+            <div class="title">Home</div>
+        </div>
+        <div class="page" onclick="location.replace('search.html')">
+            <i class="fas fa-search"></i>
+            <div class="title">Search</div>
+        </div>
+        <div class="page" onclick="location.replace('profile.html')">
+            <i class="fas fa-user"></i>
+            <div class="title">Profile</div>
+        </div>
+    </footer>
+
+<script src="js/config.js"></script>
+<script src="js/script.js"></script>
+<script>
+    var accessToken = localStorage.getItem("accessToken")
+    var productsList = document.querySelector(".products-list")
+    var searchInput = document.getElementById("searchInput")
+    
+    searchInput.addEventListener("input", () => {
+        var query = searchInput.value
+        
+        setTimeout(() => {
+            fetch(baseUrl+"/products?q="+query)
+            .then(res => res.json())
+            .then(data => {
+                removeCenteredText()
+                if (data.status == false) {cealert(data.message); return;}
+                productsList.innerHTML = ""
+                addProductToList(data.message, productsList)
+                if (data.message.length == 0) {addCenteredText("Nothing can find!")}
+            })
+            .catch(err => cealert(err))
+        }, 300)
+    })
+</script>
+</body>
+</html>

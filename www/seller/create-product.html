@@ -1,0 +1,58 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <form id="auth" class="card">
+        <h2>Create Product</h2>
+        <div class="input-box">
+            <i class="fas fa-images"></i>
+            <input type="file" name="images" accept="images/*" multiple>
+        </div>
+        <div class="input-box">
+            <i class="fas fa-user"></i>
+            <input type="text" name="title" placeholder="Title">
+        </div>
+        <div class="input-box">
+            <i class="fas fa-lock"></i>
+            <input type="text" name="description" placeholder="Description">
+        </div>
+        <div class="input-box">
+            <i class="fas fa-dollar"></i>
+            <input type="number" name="price" placeholder="Price">
+        </div>
+        <button id="submitButton" class="submitButton">Create</button>
+    </form>
+
+<script src="../js/config.js"></script>
+<script src="../js/script.js"></script>
+<script>
+    var form = document.querySelector("form")
+    var accessToken = localStorage.getItem("accessToken")
+    
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        var formData = new FormData(form)
+        
+        fetch(baseUrl+"/products/", {
+            method: "POST",
+            headers: {"authorization": `Bearer ${accessToken}`},
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.detail) {cealert(data.detail)}
+            else if (data.status == false) {cealert(data.message)}
+            else {console.log(data)}
+        })
+        .catch(err => cealert(err))
+    })
+    
+</script>
+</body>
+</html>

@@ -1,0 +1,361 @@
+@import url('https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@200..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
+
+:root {
+    --first-color: #172339;
+    --second-color: #F3F4F6;
+    --bg-color: #ffffff;
+}
+
+* {
+    user-select: none;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    font-family: "Noto Sans", sans-serif;
+}
+
+main {padding: .5em}
+
+.card {
+    background: white;
+    box-shadow: 0 0 .5em grey;
+    padding: .5em;
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.customErrorAlert {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #FF1C1C;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    width: 80%;
+    padding: 1em;
+    border-radius: .5em;
+}
+.customErrorAlert header {
+    display: flex;
+    padding: .5em;
+    gap: .5em;
+    border-bottom: 1px solid #FF6565;
+}
+.customErrorAlert header i {font-size: 1.5em}
+
+form {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5em;
+}
+
+form .input-box {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    padding: .5em;
+    border: 2px solid var(--first-color);
+    border-radius: .25em;
+}
+
+form .input-box input {
+    width: 100%;
+    background: none;
+    border: none;
+}
+
+form .ask-auth {text-decoration: underline;}
+form .submitButton {
+    background: var(--first-color);
+    padding: .25em;
+    border-radius: .25em;
+    width: 90%;
+    color: white;
+    font-size: 1.25em;
+    font-weight: 750;
+    text-align: center;
+    border: 2px solid var(--first-color);
+}
+
+form .submitButton:active {
+    background: white;
+    color: var(--first-color);
+    border: 2px solid var(--first-color);
+}
+
+header {
+    background: var(--first-color);
+    padding: 1em;
+    color: white;
+}
+
+header .logo {display: flex; gap: .5em; align-items: center;}
+header .logo i {font-size: 1.25em}
+
+.products-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: .5em;
+    gap: 10px;
+}
+
+.products-list img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.products-list .product {
+    box-shadow: 0 0 .5em grey;
+    overflow: hidden;
+    border-radius: .5em;
+    transition: all .05s;
+}
+
+.products-list .product:active {
+    transform: scale(.99);
+    box-shadow: 0 0 .5em white;
+}
+
+.products-list .product .body {padding: .25em;}
+.products-list .product .title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.my-products-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.my-products-list .my-product {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: .5em;
+    gap: .75em;
+    border-bottom: 1.5px solid #80808073;
+}
+
+.my-products-list .my-product:last-child {
+    border-bottom: none;
+}
+
+.my-products-list .my-product img {
+    height: 75px;
+    width: 75px;
+    border-radius: .5em;
+}
+
+.my-products-list .my-product .title {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.25em;
+    font-weight: 500;
+}
+
+.store-box {
+    display: flex;
+    align-items: center;
+    gap: .5em;
+}
+
+.store-box #store-logo {
+    width: 50px; width: 50px;
+    border-radius: .25em;
+}
+
+.store-box #store-title {
+    font-size: 1.25em;
+    font-weight: 650;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.store-box .open-store {
+    background: var(--first-color);
+    padding: .5em 1em;
+    border-radius: .25em;
+    font-weight: 650;
+    color: white;
+    border: 1.5px solid var(--first-color);
+}
+
+.store-box .open-store:active {
+    background: white;
+    border: 1.5px solid var(--first-color);
+    color: var(--first-color);
+}
+
+#view-product #product-title {
+}
+
+#view-product #product-images {
+    display: flex;
+    overflow: auto;
+    border-radius: .5em;
+}
+
+#view-product #product-images img {
+    width: 100%;
+    border-radius: .5em;
+}
+
+#view-product #product-description {
+    border-radius: .5em;
+    padding: .25em;
+    margin: .5em .25em;
+}
+
+#view-product .control .button {
+    background: var(--first-color);
+    font-weight: 650;
+    padding: .5em;
+    border-radius: .25em;
+    margin: .25em 0;
+    color: white;
+    text-align: center;
+}
+
+.search-input-box {
+    box-shadow: 0 0 .5em grey;
+    border-radius: .5em;
+    display: flex;
+    gap: .5em;
+    align-items: center;
+    padding: .5em;
+    margin: .5em;
+}
+
+.search-input-box input {
+    background: none;
+    border: none;
+    width: 100%;
+}
+
+.profileDataBox {align-items: center;gap: .5em;}
+.profileDataBox .store-logo {
+    width: 100px;
+    border-radius: 50%;
+}
+
+.profileDataBox .store-title {font-size: 1.25em; font-weight: 650}
+
+.profile-navs {
+    box-shadow: 0 0 .5em grey;
+    border-radius: 1em;
+    overflow: hidden;
+}
+
+.profile-navs .profile-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #B3B3B3;
+    padding: 1em;
+    gap: .35em;
+}
+
+.profile-navs .profile-nav .title {width: 100%}
+.profile-navs .profile-nav i {font-size: 1.25em}
+.profile-navs .profile-nav:last-child {
+    border: none;
+}
+
+.profile-navs .profile-nav:active {
+    background: #DDDDDD;
+}
+
+footer {
+    background: var(--first-color);
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    margin: 5%;
+    padding: .5em;
+    border-radius: 2em;
+    color: white;
+}
+
+footer .page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+footer .page i {
+    font-size: 1.25em;
+}
+
+.unauthorised-box {
+    position: absolute;
+    box-shadow: 0 0 .5em grey;
+    padding: 1em;
+    border-radius: 1em;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.unauthorised-box .button {
+    background: var(--first-color);
+    border: 2px solid var(--first-color);
+    padding: .5em;
+    width: 100%;
+    border-radius: .5em;
+    font-weight: 650;
+    color: white;
+    text-align: center;
+    margin: .25em 0;
+}
+
+.unauthorised-box .button:active {
+    background: white;
+    color: var(--first-color);
+}
+
+.unauthorised-box i {
+    font-size: 5em;
+    margin-bottom: .15em;
+    color: var(--first-color);
+}
+
+#loadingBox {
+    position: absolute;
+    backdrop-filter: blur(1em);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid grey;
+    padding: .5em;
+    font-size: 1.5em;
+    border-radius: .5em;
+    display: none;
+}
+.loading-circle {
+    padding: 1em;
+    border: 10px solid grey;
+    border-radius: 50%;
+    border-right: 10px solid blue;
+    animation: spin 2s infinite ease;
+}
+@keyframes spin {
+    100% {transform: rotate(720deg)}
+}

@@ -1,0 +1,58 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-shopping-cart"></i>
+            <h2>OpenSale</h2>
+        </div>
+    </header>
+    
+    <main>
+        
+        <div class="products-list"></div>
+        
+    </main>
+
+    <br><br><br><br><br>
+    <footer>
+        <div class="page" onclick="location.replace('index.html')">
+            <i class="fas fa-home"></i>
+            <div class="title">Home</div>
+        </div>
+        <div class="page" onclick="location.replace('search.html')">
+            <i class="fas fa-search"></i>
+            <div class="title">Search</div>
+        </div>
+        <div class="page" onclick="location.replace('profile.html')">
+            <i class="fas fa-user"></i>
+            <div class="title">Profile</div>
+        </div>
+    </footer>
+<script src="js/config.js"></script>
+<script src="js/script.js"></script>
+<script>
+    var productsList = document.querySelector(".products-list")
+    var store_id = sessionStorage.getItem("store_id")
+    
+    if (store_id == null) {history.back()}
+    
+    fetch(baseUrl+"/products?store_id="+store_id)
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+        if (data.status == false) {cealert(data.message)}
+        else {addProductToList(data.message, productsList)}
+    })
+    .catch(err => cealert(err))
+    
+</script>
+</body>
+</html>

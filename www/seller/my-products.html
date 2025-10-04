@@ -1,0 +1,48 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-shopping-cart"></i>
+            <h2>OpenSale</h2>
+        </div>
+    </header>
+    <main>
+        <div class="card">
+        <div class="my-products-list">
+            <!-- <div class="my-product">
+                <img src="image.png" alt="">
+                <div class="title">Sone</div>
+                <i class="fas fa-chevron-right"></i>
+            </div> -->
+        </div>
+        </div>
+    </main>
+
+<script src="../js/config.js"></script>
+<script src="../js/script.js"></script>
+<script>
+    var accessToken = localStorage.getItem("accessToken")
+    var myProductsList = document.querySelector(".my-products-list")
+    
+    fetch(baseUrl+"/products?my=products", {
+        method: "GET",
+        headers: {"Content-Type": "application/json", "authorization": `Bearer ${accessToken}`}
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.detail) {cealert(data.detail)}
+        else if (data.status == false) {cealert(data.message)}
+        else {addMyProductsToList(data.message, myProductsList)}
+    })
+    .catch(err => cealert(err))
+</script>
+</body>
+</html>
