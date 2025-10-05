@@ -1,6 +1,6 @@
 // const baseUrl = "http://127.0.0.1:8000"
 const baseUrl = "https://shaxcoder.pythonanywhere.com"
-const cur_version = 0
+const cur_version = 2
 
 var accessToken = localStorage.getItem("accessToken")
 fetch(baseUrl+"/appmanage/", {
@@ -16,7 +16,7 @@ fetch(baseUrl+"/appmanage/", {
     if (cur_version < latest.id) {
         document.body.innerHTML += `
     <div id="newUpdateBox">
-        <h3>New Update</h3>
+        <h3>New Update ${latest.id}.${latest.version}</h3>
         <p>${latest.description}</p>
         <div class="update-button" id="newUpdateButton">Update now</div>
     </div>
