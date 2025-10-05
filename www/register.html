@@ -51,10 +51,12 @@
             if (data.status == false) {loadingFunc(loadingBox, "off"); cealert(data.message); return;}
             fetch(baseUrl+"/api/token/", {
                 method: "POST",
-                body: formData
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({username: formData.get("username"), password: formData.get("password")})
             })
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 loadingFunc(loadingBox, "off")
                 localStorage.setItem("accessToken", data.access)
                 history.back()

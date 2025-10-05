@@ -25,7 +25,7 @@
     <main>
         
         <div class="profileDataBox card">
-            <img src="" alt="" class="store-logo" id="store-logo">
+            <img src="user.jpg" alt="" class="store-logo" id="store-logo">
             <div class="store-title" id="store-title"></div>
             <div class="username" id="username"></div>
         </div>
@@ -99,7 +99,7 @@
         })
         .then(res => res.json())
         .then(data => {
-            if (data.detail == "User not found") {location.replace("login.html")}
+            if (data.detail == "User not found") {localStorage.removeItem("accessToken"); location.replace("login.html")}
             else if (data.detail) {cealert(data.detail)}
             else if (data.status == false) {cealert(data.message)}
             else {
@@ -115,7 +115,7 @@
         }).catch(err => cealert(err))
         
         logoutButton.addEventListener("click", () => {
-            var sure = confirm("Logout ?")
+            var sure = confirm("Logout?")
             if (sure) {
                 localStorage.removeItem("accessToken")
                 location.assign("login.html")

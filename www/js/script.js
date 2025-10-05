@@ -69,10 +69,6 @@ const getMeApi = () => {
     .catch(err => cealert(err))
 }
 
-window.addEventListener("dblclick", e => {
-    getMeApi()
-})
-
 const addMyProductsToList = (data, data_list) => {
     data.forEach(product => {
         data_list.innerHTML += `
