@@ -8,7 +8,7 @@
   <description>Free store</description>
   <author email="shaxrux243@gmail.com" href="https://shaxweb.github.io/projects">Shaxrux</author>
 
-  <content src="main/index.html" />
+  <content src="index.html" />
   <access origin="*" />
   <allow-navigation href="*" />
   <allow-intent href="*" />
