@@ -1,6 +1,6 @@
 // const baseUrl = "http://127.0.0.1:8000"
 const baseUrl = "https://shaxcoder.pythonanywhere.com"
-const cur_version = 2
+const cur_version = 3
 
 var accessToken = localStorage.getItem("accessToken")
 fetch(baseUrl+"/appmanage/", {
@@ -21,6 +21,6 @@ fetch(baseUrl+"/appmanage/", {
         <div class="update-button" id="newUpdateButton">Update now</div>
     </div>
         `
-        document.getElementById("newUpdateButton").onclick = () => {window.open(latest.update_url, "_blank")}
+        document.getElementById("newUpdateButton").onclick = () => {window.open(latest.update_url)}
     }
 })
