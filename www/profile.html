@@ -99,7 +99,7 @@
         })
         .then(res => res.json())
         .then(data => {
-            if (data.detail == "User not found") {localStorage.removeItem("accessToken"); location.replace("login.html")}
+            if (["User not found", "Given token not valid for any token type"].includes(data.detail)) {localStorage.removeItem("accessToken"); location.assign("login.html")}
             else if (data.detail) {cealert(data.detail)}
             else if (data.status == false) {cealert(data.message)}
             else {

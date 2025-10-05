@@ -395,3 +395,15 @@ footer .page i {
     font-weight: 650;
     border-radius: .5em;
 }
+
+.card .page {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    gap: .5em;
+    border-bottom: 1px solid #C4C4C4;
+}
+.card .page:last-child {border: none}
+.card .page .icon-15 {font-size: 1.25em;}
+.card .page .title {width: 100%;}

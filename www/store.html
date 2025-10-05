@@ -1,0 +1,65 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-shopping-cart"></i>
+            <h2>OpenSale</h2>
+        </div>
+    </header>
+    
+    <main>
+        <div class="card">
+            <div class="page" onclick="location.assign('seller/update-store.html')">
+                <i class="fas fa-edit icon-15"></i>
+                <div class="title">Edit Store</div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="page" onclick="location.assign('seller/my-products.html')">
+                <i class="fas fa-shopping-cart icon-15"></i>
+                <div class="title">My products</div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="page" onclick="location.assign('seller/create-prodcut.html')">
+                <i class="fas fa-plus"></i>
+                <div class="title">Add Product</div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="page" onclick="cealert('You cannot delete the store.')">
+                <i class="fas fa-basket icon-15"></i>
+                <div class="title">Delete store</div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+    </main>
+    
+<script src="js/config.js"></script>
+<script src="js/script.js"></script>
+<script>
+    var accessToken = localStorage.getItem("accessToken")
+    
+    fetch(baseUrl+"/user/get_me/", {
+        method: "GET",
+        headers: {"Content-Type": "application/json", "authorization": `Bearer ${accessToken}`}
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (["User not found", "Given token not valid for any token type"].includes(data.detail)) {localStorage.removeItem("accessToken"); location.assign("login.html")}
+        else if (data.detail) {cealert(data.detail)}
+        else if (data.status == false) {cealert(data.message)}
+        else {
+            console.log(data.message)
+        }
+    })
+    .catch(err => cealert(err))
+    
+</script>
+</body>
+</html>
