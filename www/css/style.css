@@ -207,6 +207,7 @@ header .logo i {font-size: 1.25em}
     display: flex;
     overflow: auto;
     border-radius: .5em;
+    gap: .25em;
 }
 
 #view-product #product-images img {

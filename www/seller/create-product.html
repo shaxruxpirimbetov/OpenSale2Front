@@ -15,11 +15,11 @@
             <input type="file" name="images" accept="images/*" multiple>
         </div>
         <div class="input-box">
-            <i class="fas fa-user"></i>
+            <i class="fas fa-t"></i>
             <input type="text" name="title" placeholder="Title">
         </div>
         <div class="input-box">
-            <i class="fas fa-lock"></i>
+            <i class="fas fa-d"></i>
             <input type="text" name="description" placeholder="Description">
         </div>
         <div class="input-box">
@@ -29,14 +29,19 @@
         <button id="submitButton" class="submitButton">Create</button>
     </form>
 
+<div id="loadingBox">
+    <div class="loading-circle"></div>
+</div>
 <script src="../js/config.js"></script>
 <script src="../js/script.js"></script>
 <script>
     var form = document.querySelector("form")
     var accessToken = localStorage.getItem("accessToken")
+    var loadingBox = document.getElementById("loadingBox")
     
     form.addEventListener("submit", (e) => {
         e.preventDefault();
+        loadingFunc(loadingBox, "on")
         var formData = new FormData(form)
         
         fetch(baseUrl+"/products/", {
@@ -46,9 +51,9 @@
         })
         .then(res => res.json())
         .then(data => {
-            if (data.detail) {cealert(data.detail)}
-            else if (data.status == false) {cealert(data.message)}
-            else {console.log(data)}
+            if (data.detail) {loadingFunc(loadingBox, "off"); cealert(data.detail)}
+            else if (data.status == false) {loadingFunc(loadingBox, "off"); cealert(data.message)}
+            else {history.back()}
         })
         .catch(err => cealert(err))
     })
