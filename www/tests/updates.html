@@ -14,7 +14,7 @@
 fetch(baseUrl+"/appmanage/", {
     method: "POST",
     headers: {"Content-Type": "application/json", "authorization": `Bearer ${accessToken}`},
-    body: JSON.stringify({version: "0.7", update_url: "https://apps.volt.build/4b418766-035c-4b08-a1ac-a4dd7a1949a2/android.debug.apk", description: "добавлено добавление продукта, и главное меню магазина, хотя маленький. короче новая страница store"})
+    body: JSON.stringify({version: "0.8", update_url: "", description: "bugs fixed"})
 })
 .then(res => res.json())
 .then(data => {console.log("+", data)})
