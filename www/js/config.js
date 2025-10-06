@@ -18,10 +18,10 @@ fetch(baseUrl+"/appmanage/", {
     <div id="newUpdateBox">
         <h3>New Update ${latest.id}.${latest.version}</h3>
         <p>${latest.description}</p>
-        <div class="update-button" id="newUpdateButton">Update now</div>
+        <a class="update-button" id="newUpdateButton" href="${latest.update_url}">Update now</a>
     </div>
         `
-        console.log(latest.update_url)
-        document.getElementById("newUpdateButton").onclick = () => {window.open(latest.update_url)}
+        // console.log(latest.update_url)
+        // document.getElementById("newUpdateButton").onclick = () => {window.open(latest.update_url)}
     }
 })
